@@ -10,7 +10,7 @@ const initialState: AuthState = {
   isLoggedIn: false,
 };
 
-// Define response type
+const BASE_URL = "http://localhost:5000/api/user";
 
 // Async thunk for sending OTP
 export const sendOtp = createAsyncThunk<
@@ -19,7 +19,7 @@ export const sendOtp = createAsyncThunk<
   { rejectValue: ApiResponse }
 >("auth/sendOtp", async (userData, { rejectWithValue }) => {
   try {
-    const response = await fetch("http://localhost:5000/api/user/send-otp", {
+    const response = await fetch(`${BASE_URL}/send-otp`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export const registerUser = createAsyncThunk<
   { rejectValue: ApiResponse }
 >("auth/register", async (userData, { rejectWithValue }) => {
   try {
-    const response = await fetch("http://localhost:5000/api/user/register", {
+    const response = await fetch(`${BASE_URL}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ export const loginUser = createAsyncThunk<
   { rejectValue: ApiResponse }
 >("auth/login", async (userData, { rejectWithValue }) => {
   try {
-    const response = await fetch("http://localhost:5000/api/user/login", {
+    const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export const logoutUser = createAsyncThunk<
   { rejectValue: ApiResponse }
 >("auth/logout", async (_, { rejectWithValue }) => {
   try {
-    const response = await fetch("http://localhost:5000/api/user/logout");
+    const response = await fetch(`${BASE_URL}/logout`);
 
     if (!response.ok) {
       const errorData: ApiResponse = await response.json();
